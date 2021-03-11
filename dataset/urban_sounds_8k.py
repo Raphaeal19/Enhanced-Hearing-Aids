@@ -12,10 +12,12 @@ class UrbanSound8K:
         self.class_ids = class_ids
 
     def _get_urban_sound_8K_filenames(self):
-        urbansound_metadata = pd.read_csv(os.path.join(self.basepath, 'metadata', 'UrbanSound8K.csv'))
+        urbansound_metadata = pd.read_csv(os.path.join(
+            self.basepath, 'metadata', 'UrbanSound8K.csv'))
 
         # shuffle the dataframe
-        urbansound_metadata.reindex(np.random.permutation(urbansound_metadata.index))
+        urbansound_metadata.reindex(
+            np.random.permutation(urbansound_metadata.index))
 
         return urbansound_metadata
 
@@ -28,7 +30,8 @@ class UrbanSound8K:
         all_files = []
         file_counter = 0
         for c in self.class_ids:
-            per_class_files = metadata[metadata['classID'] == c][['slice_file_name', 'fold']].values
+            per_class_files = metadata[metadata['classID'] == c][[
+                'slice_file_name', 'fold']].values
             per_class_files = [os.path.join(self.basepath, 'audio', 'fold' + str(file[1]), file[0]) for file in
                                per_class_files]
             print("Class c:", str(c), 'has:', len(per_class_files), 'files')
@@ -44,7 +47,8 @@ class UrbanSound8K:
         # folds from 0 to 9 are used for training
         urbansound_train = urbansound_metadata[urbansound_metadata.fold != 10]
 
-        urbansound_train_filenames = self._get_filenames_by_class_id(urbansound_train)
+        urbansound_train_filenames = self._get_filenames_by_class_id(
+            urbansound_train)
         np.random.shuffle(urbansound_train_filenames)
 
         # separate noise files for train/validation
@@ -61,7 +65,8 @@ class UrbanSound8K:
         # fold 10 is used for testing only
         urbansound_train = urbansound_metadata[urbansound_metadata.fold == 10]
 
-        urbansound_test_filenames = self._get_filenames_by_class_id(urbansound_train)
+        urbansound_test_filenames = self._get_filenames_by_class_id(
+            urbansound_train)
         np.random.shuffle(urbansound_test_filenames)
 
         print("# of Noise testing files:", len(urbansound_test_filenames))
