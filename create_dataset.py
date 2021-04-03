@@ -5,8 +5,8 @@ import warnings
 
 warnings.filterwarnings(action='ignore')
 
-mozilla_basepath = '/home/thallessilva/Documents/datasets/en'
-urbansound_basepath = '/home/thallessilva/Documents/datasets/UrbanSound8K'
+mozilla_basepath = '/content/datasets/Train_test_mozilla/'
+urbansound_basepath = '/content/datasets/UrbanSound8K/'
 
 mcv = MozillaCommonVoiceDataset(mozilla_basepath, val_dataset_size=1000)
 clean_train_filenames, clean_val_filenames = mcv.get_train_val_filenames()
