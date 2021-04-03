@@ -25,7 +25,7 @@ class MozillaCommonVoiceDataset:
 
         # resolve full path
         clean_files = [os.path.join(
-            self.basepath, 'clips', 'train', filename) for filename in clean_files]
+            self.basepath, 'clips', 'train', filename, '.mp3') for filename in clean_files]
 
         clean_files = clean_files[:-self.val_dataset_size]
         clean_val_files = clean_files[-self.val_dataset_size:]
@@ -39,7 +39,7 @@ class MozillaCommonVoiceDataset:
 
         # resolve full path
         clean_files = [os.path.join(
-            self.basepath, 'clips', 'test', filename) for filename in clean_files]
+            self.basepath, 'clips', 'test', filename, '.mp3') for filename in clean_files]
 
         print("# of Testing clean files:", len(clean_files))
         return clean_files
