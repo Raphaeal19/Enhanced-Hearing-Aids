@@ -47,10 +47,6 @@ class realtime_processing:
 
     def noise_cancelation_callback(self, indata, outdata, frames, time, status):
         # buffer and states to global
-
-        print(self.block_len_ms)
-        if status:
-            print(status)
         # write to buffer
         self.in_buffer[:-self.block_shift] = self.in_buffer[self.block_shift:]
         self.in_buffer[-self.block_shift:] = np.squeeze(indata)
@@ -99,5 +95,4 @@ class realtime_processing:
             self.out_buffer[:self.block_shift], axis=-1)
 
     def pass_through_callback(self, indata, outdata, frames, time, status):
-        print("ON")
         outdata[:] = indata
