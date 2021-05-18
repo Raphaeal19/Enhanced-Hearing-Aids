@@ -1,0 +1,5 @@
+numpy>=1.18.1
+sounddevice>=0.4.1
+tflite>=2.3.0 
+tflite_runtime>=2.1.0.post1
+tk>=0.1.0

@@ -1,7 +1,6 @@
 import numpy as np
 import sounddevice as sd
 import tflite_runtime.interpreter as tflite
-import argparse
 
 
 def int_or_str(text):
