@@ -35,15 +35,15 @@ def switch():
         my_label.config(text="Noise Cancellation is Off!",
                         fg="grey")
         is_on = False
-        noise_on.stop()
-        noise_off.start()
+        noise_off.stop()
+        noise_on.start()
 
     else:
         on_button.config(image=on)
         my_label.config(text="Noise Cancellation is On!", fg="green")
         is_on = True
-        noise_off.stop()
-        noise_on.start()
+        noise_on.stop()
+        noise_off.start()
 
 
 on = PhotoImage(file="./assests/on.png")

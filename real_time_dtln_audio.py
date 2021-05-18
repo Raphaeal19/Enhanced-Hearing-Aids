@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import sounddevice as sd
 import tflite_runtime.interpreter as tflite
@@ -13,7 +14,7 @@ def int_or_str(text):
 
 class realtime_processing:
 
-    def __init__(self, latency=0.2):
+    def __init__(self, latency=0.1):
         self.latency = latency
 
         self.block_len_ms = 32
@@ -65,7 +66,7 @@ class realtime_processing:
         # get the output of the first block
         out_mask = self.interpreter_1.get_tensor(
             self.output_details_1[0]['index'])
-        states_1 = self.interpreter_1.get_tensor(
+        self.states_1 = self.interpreter_1.get_tensor(
             self.output_details_1[1]['index'])
         # calculate the ifft
         estimated_complex = in_mag * out_mask * np.exp(1j * in_phase)
@@ -83,7 +84,7 @@ class realtime_processing:
         # get output tensors
         out_block = self.interpreter_2.get_tensor(
             self.output_details_2[0]['index'])
-        states_2 = self.interpreter_2.get_tensor(
+        self.states_2 = self.interpreter_2.get_tensor(
             self.output_details_2[1]['index'])
         # write to buffer
         self.out_buffer[:-
