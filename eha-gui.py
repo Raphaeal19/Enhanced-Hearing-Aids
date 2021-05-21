@@ -1,9 +1,15 @@
-from tkinter import Tk, Label, PhotoImage, Button
+from ttkbootstrap import Style
+from tkinter import Scale, Tk, Label, PhotoImage, Button, DoubleVar, font
+from tkinter.constants import CENTER, HORIZONTAL
 import real_time_dtln_audio
 import sounddevice as sd
 import numpy as np
 
-root = Tk()
+style = Style(theme='superhero')
+style.configure('custom.TFrame', background='gray')
+
+root = style.master
+var = DoubleVar()
 noise_canc = real_time_dtln_audio.realtime_processing()
 noise_off = sd.Stream(samplerate=noise_canc.fs_target, blocksize=noise_canc.block_shift,
                       dtype=np.float32, latency=noise_canc.latency,
@@ -16,15 +22,20 @@ noise_on = sd.Stream(samplerate=noise_canc.fs_target, blocksize=noise_canc.block
 root.title('Enhanced Hearing Aid')
 
 
-root.geometry("1280x720")
+root.geometry("800x400")
+root.minsize(800, 400)
 is_on = False
+
+our_font = font.Font(family="Comic Sans MS",
+                     size=20,
+                     weight="bold")
 
 my_label = Label(root,
                  text="Noise Cancellation is Off!",
                  fg="grey",
-                 font=("Times", 32))
+                 font=our_font)
 
-my_label.pack(pady=20)
+my_label.pack(pady=40)
 
 
 def switch():
@@ -51,6 +62,12 @@ off = PhotoImage(file="./assests/off.png")
 
 on_button = Button(root, image=off, bd=0,
                    command=switch)
-on_button.pack(pady=50)
+on_button.pack(pady=30)
+
+scale = Scale(root, variable=var, orient=HORIZONTAL,
+              from_=0.1, resolution=0.1, to=1, showvalue=1)
+scale.pack(anchor=CENTER)
+vol_label = Label(root, text="Latency")
+vol_label.pack()
 
 root.mainloop()
